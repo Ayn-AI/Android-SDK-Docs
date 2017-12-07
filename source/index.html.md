@@ -14,6 +14,12 @@ toc_footers:
 includes:
   - setup
   - initialisation
+  - verify
+  - verify_api
+  - verify_core
+  - verify_face
+  - verify_live
+  - verify_nfc
 
 search: true
 ---

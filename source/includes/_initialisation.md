@@ -44,6 +44,6 @@ Verify.Companion.init("your-api-key", new LicenceListener() {
       });
 ```
 
-You must initialise the SD with your API Key provided by Eyn before you can use the SDK, otherwise it **will** throw an Exception.
+You must initialise the SDK with your API Key provided by Eyn before you can use the SDK, otherwise it **will** throw an Exception.
 
 This process, does have a callback to make sure the process has completed before you're able to proceed. It should be a very quick process, but a network call is required.
