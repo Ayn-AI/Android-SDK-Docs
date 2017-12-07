@@ -306,7 +306,19 @@ or
 <blockquote>
 <p>Initialise SDK with debug</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code><span class="n">Verify</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="s">"your-api-key"</span><span class="p">,</span> <span class="k">true</span><span class="p">)</span>
+<pre class="highlight kotlin tab-kotlin"><code><span class="n">Verify</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="s">"your-api-key"</span><span class="p">,</span> <span class="kd">object</span> <span class="err">: </span><span class="nc">LicenceListener</span> <span class="p">{</span>
+        <span class="k">override</span> <span class="k">fun</span> <span class="nf">started</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+
+        <span class="k">override</span> <span class="k">fun</span> <span class="nf">failed</span><span class="p">(</span><span class="n">throwable</span><span class="p">:</span> <span class="n">Throwable</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+
+        <span class="k">override</span> <span class="k">fun</span> <span class="nf">success</span><span class="p">()</span> <span class="p">{</span>
+
+        <span class="p">}</span>
+      <span class="p">}</span>
 </code></pre><pre class="highlight java tab-java"><code><span class="n">Verify</span><span class="o">.</span><span class="na">Companion</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="s">"your-api-key"</span><span class="o">,</span> <span class="k">new</span> <span class="n">LicenceListener</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">started</span><span class="o">()</span> <span class="o">{</span>
 
@@ -321,7 +333,9 @@ or
         <span class="o">}</span>
       <span class="o">});</span>
 </code></pre>
-<p>You must initialise the SDK before using it, otherwise it <strong>will</strong> throw an Exception</p>
+<p>You must initialise the SD with your API Key provided by Eyn before you can use the SDK, otherwise it <strong>will</strong> throw an Exception.</p>
+
+<p>This process, does have a callback to make sure the process has completed before you&#39;re able to proceed. It should be a very quick process, but a network call is required.</p>
 
       </div>
       <div class="dark-box">
