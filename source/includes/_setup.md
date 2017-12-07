@@ -36,6 +36,4 @@ or
 ./gradlew app:dependencies
 ```
 
-Currently we have no transistive libraries, but we are using Gradle 3.0 so dependancy issues should be minimal.
-
 If there is a problem with a clashing dependancy then use the Gralde dependancy tree to discover which is clashing and alert Eyn if there is a problem when you remove it.
