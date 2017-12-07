@@ -8,7 +8,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - shell
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key by emailing hasan@eyn.vision</a>
+  - <a href='mailto:hasan@eyn.vision'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -17,9 +17,9 @@ includes:
   - verify
   - verify_api
   - verify_core
+  - verify_nfc
   - verify_face
   - verify_live
-  - verify_nfc
 
 search: true
 ---
