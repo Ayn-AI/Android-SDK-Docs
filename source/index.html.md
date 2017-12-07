@@ -33,7 +33,7 @@ In an effort to make the SDK as extensible and flexible as possible, it's split 
 * **verifyFace** - Facial recongition aspects
 * **verifyLive** - TBC
 
-You will need to discuss internall and with stakeholders, to determine which components you will need to use. We foresee the following two uses:
+You will need to discuss internally and with stakeholders, to determine which components you will need to use. We foresee the following two uses:
 
 1. **verify** - Let Eyn handle the entire verification process with our Ui, in this case just use
 2. **verify{module}** - Implement the verification process yourself, this will require different degress of the other components. Depending on your level of verification
