@@ -2,8 +2,8 @@
 title: Android SDK API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - kotlin
   - java
+  - kotlin
   - gradle
   - shell
 

@@ -1,11 +1,13 @@
 # VerifyLive
 
-> 
+> Live Detection
 
 ```kotlin
+TBC
 ```
 
 ```java
+TBC
 ```
 
-The Verify uses are entire UI flow to complete a verification of a user.
+Work in progress and has not yet been defined.

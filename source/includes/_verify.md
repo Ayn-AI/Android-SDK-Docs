@@ -47,7 +47,7 @@ if (getIntent() != null && getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMP
 }
 ```
 
-The Verify uses are entire UI flow to complete a verification of a user.
+You can use Verify to handle the entire Ui flow, in order to complete a verification of the user.
 
 In order to start the flow an email address will need to set into the SDK, this is so that a report can be sent to the user(or yourselves) depending on the Use Case
 
