@@ -1,4 +1,4 @@
-# VerifyCore
+# EynCore
 
 > 
 

@@ -1,4 +1,4 @@
-# VerifyIdDocument
+# EynIdDocument
 
 > Capture ID Document Info
 
@@ -46,15 +46,6 @@ if (requestCode == REQUEST_CODE) {
 		// Result unsuccessful
     }
 }
-```
-
-> Show User Info (using Verify Ui)
-
-```kotlin
-```
-
-```java
-startActivity(new Intent(this, DisplayReadDataActivity.class));
 ```
 
 > Show User Info

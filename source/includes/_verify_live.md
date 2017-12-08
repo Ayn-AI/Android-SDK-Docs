@@ -1,4 +1,4 @@
-# VerifyLive
+# EynLive
 
 > Live Detection
 

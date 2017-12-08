@@ -1,4 +1,4 @@
-# Verify
+# Eyn
 
 > Set the email address
 
