@@ -15,9 +15,9 @@ includes:
   - setup
   - initialisation
   - verify
-  - verify_api
   - verify_nfc
   - verify_face
+  - verify_api
 
 search: true
 ---

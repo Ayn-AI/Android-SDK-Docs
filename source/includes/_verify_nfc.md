@@ -1,12 +1,36 @@
-# VerifyNfc
+# VerifyIdDocument
 
-> Start NFC Scan
+> Capture ID Document Info
 
 ```kotlin
 ```
 
 ```java
-startActivityForResult(new Intent(this, DetectingNFCDataActivity.class), REQUEST_CODE);
+startActivityForResult(new Intent(this, CaptureIdDocumentActivity.class), REQUEST_CODE);
+```
+
+> Capture ID Result
+
+```kotlin
+```
+
+```java
+if (requestCode == REQUEST_CODE) {
+	if (resultCode == ApiResults.Codes.RESULT_ID_SCAN_COMPLETE) {
+		// Result successful
+	} else {
+		// Result unsuccessful
+    }
+}
+```
+
+> Start Id Document Chip Data
+
+```kotlin
+```
+
+```java
+startActivityForResult(new Intent(this, ReadIdDocumentChip.class), REQUEST_CODE);
 ```
 
 > Scan Result
@@ -15,7 +39,7 @@ startActivityForResult(new Intent(this, DetectingNFCDataActivity.class), REQUEST
 ```
 
 ```java
-if (requestCode == REQUEST_ID_READ) {
+if (requestCode == REQUEST_CODE) {
 	if (resultCode == ApiResults.Codes.RESULT_ID_READ_COMPLETE) {
 		// Result successful
 	} else {
@@ -58,16 +82,7 @@ userImage.setImageBitmap(
 	ImageUtils.identityFaceImageToBitmap(identityDocument));
 ```
 
-Captures the users face (selfie).
+This module interacts with the ID Document. With two main purposes:
 
-Face detection, is used to make sure that the users face is fully visible and that all landmarks on the users face is visible.
-
-The following results are as follows:
-
-1. RESULT_FACE_SCAN_SUCCESS
-2. RESULT_FACE_SCAN_FAILED
-
-Once the information has been retrived there are two ways to display the data:
-
-1. Using the provided Verify UI
-2. Implementing the Ui, by accessing `IdentityDocument` directly
+1. Capture ID Document (Image and MRZ)
+2. Scan ID Document Chip

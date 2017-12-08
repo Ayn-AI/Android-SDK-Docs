@@ -6,10 +6,10 @@
 ```
 
 ```java
-IdentitySession.REQUEST_VERI_FAST
+IdentitySession.REQUEST_VERIFY_IDENTITY
 IdentitySession.REQUEST_RIGHT_TO_WORK
 
-IdentitySession.getInstance().setStatus(IdentitySession.REQUEST_VERI_FAST);
+IdentitySession.getInstance().setStatus(IdentitySession.REQUEST_VERIFY_IDENTITY);
 
 startActivity(new Intent(this, VerifyActivity.class));
 ```
@@ -20,8 +20,8 @@ startActivity(new Intent(this, VerifyActivity.class));
 ```
 
 ```java
-if(getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE,
-	ApiResults.Codes.GENERIC)	== ApiResults.Codes.SUCCESS))
+if (getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE,
+	ApiResults.Codes.GENERIC) == ApiResults.Codes.SUCCESS))
 	{
 		// Verify was successful
 	}
@@ -33,7 +33,7 @@ if(getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE,
 ```
 
 ```java
-IdentitySession.REQUEST_VERI_FAST
+IdentitySession.REQUEST_VERI_IDENTITY
 IdentitySession.REQUEST_RIGHT_TO_WORK
 
 private void verification() {
@@ -116,7 +116,7 @@ When using our process, it's as simple as calling the VerifyActivity. This will 
 
 There are different types of request that you need to specify, which depends on your use case. These are either:
 
-1. VeriFast
+1. Verify Identity
 2. Right To Work
 
 If you would like to manage the process yourself, we have provided some useful functionality that relies on Reactive principles.

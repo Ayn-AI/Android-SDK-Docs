@@ -47,6 +47,15 @@ if (getIntent() != null && getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMP
 }
 ```
 
+> Show User Info (once scanned by user)
+
+```kotlin
+```
+
+```java
+startActivity(new Intent(this, DisplayReadDataActivity.class));
+```
+
 You can use Verify to handle the entire Ui flow, in order to complete a verification of the user.
 
 In order to start the flow an email address will need to set into the SDK, this is so that a report can be sent to the user(or yourselves) depending on the Use Case
