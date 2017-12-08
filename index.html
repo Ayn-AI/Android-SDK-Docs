@@ -237,16 +237,10 @@
             <a href="#verifyapi" class="toc-h1 toc-link" data-title="VerifyApi">VerifyApi</a>
           </li>
           <li>
-            <a href="#verifycore" class="toc-h1 toc-link" data-title="VerifyCore">VerifyCore</a>
-          </li>
-          <li>
             <a href="#verifynfc" class="toc-h1 toc-link" data-title="VerifyNfc">VerifyNfc</a>
           </li>
           <li>
             <a href="#verifyface" class="toc-h1 toc-link" data-title="VerifyFace">VerifyFace</a>
-          </li>
-          <li>
-            <a href="#verifylive" class="toc-h1 toc-link" data-title="VerifyLive">VerifyLive</a>
           </li>
       </div>
         <ul class="toc-footer">
@@ -420,29 +414,42 @@ or
 <blockquote>
 <p>Verifying with Ui</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">VerifyActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span>
+<span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_RIGHT_TO_WORK</span>
+
+<span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">setStatus</span><span class="o">(</span><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span><span class="o">);</span>
+
+<span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">VerifyActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
 </code></pre>
 <blockquote>
 <p>Retrieve Result</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span><span class="o">(</span><span class="n">getIntent</span><span class="o">().</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">IntentUtils</span><span class="o">.</span><span class="na">EXTRA_VERIFY_COMPLETE</span><span class="o">,</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">GENERIC</span><span class="o">)</span>
-    <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span><span class="o">(</span><span class="n">getIntent</span><span class="o">().</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">IntentUtils</span><span class="o">.</span><span class="na">EXTRA_VERIFY_COMPLETE</span><span class="o">,</span>
+    <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">GENERIC</span><span class="o">)</span>   <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span>
     <span class="o">{</span>
         <span class="c1">// Verify was successful</span>
     <span class="o">}</span>
 </code></pre>
 <blockquote>
-<p>Start a Verification</p>
+<p>Setting Verification Type</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code>
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">initialVerification</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">startVerification</span><span class="o">(</span><span class="k">new</span> <span class="n">UploadVerification</span><span class="o">(</span>
-        <span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(),</span>
-        <span class="k">new</span> <span class="nf">IdentityClient</span><span class="o">()));</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span>
+<span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_RIGHT_TO_WORK</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verification</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">startVerification</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">UploadVerification</span><span class="o">(</span><span class="n">identitySession</span><span class="o">,</span> <span class="n">identityClient</span><span class="o">));</span>
 <span class="o">}</span>
 
-
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">startVerification</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">UploadVerification</span> <span class="n">uploadVerification</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verification</span><span class="o">(</span><span class="nd">@IdentitySession</span><span class="o">.</span><span class="na">StatusTypes</span> <span class="nd">@NonNull</span> <span class="n">String</span> <span class="n">status</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">startVerification</span><span class="o">(</span>
+        <span class="k">new</span> <span class="nf">UploadVerification</span><span class="o">(</span><span class="n">identitySession</span><span class="o">,</span> <span class="n">status</span><span class="o">,</span> <span class="n">identityClient</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Start custom Verification</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">startVerification</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">UploadVerification</span> <span class="n">uploadVerification</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">FaceBiometry</span> <span class="n">faceBiometry</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getFaceBio</span><span class="o">();</span>
     <span class="n">IdentityDocument</span> <span class="n">document</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getIdDoc</span><span class="o">();</span>
     <span class="n">String</span> <span class="n">sessionJson</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getIdentityCheckSessionJSON</span><span class="o">();</span>
@@ -489,7 +496,7 @@ or
         <span class="c1">// Process has completed</span>
     <span class="o">}</span>
 </code></pre>
-<p>In order to verify a user, currently we need to connect to our API to run the complex facial matching.</p>
+<p>In order to verify a user, currently we need to connect to our API to run the facial matching.</p>
 
 <p>To do this you can do either of the following:</p>
 
@@ -500,20 +507,23 @@ or
 
 <p>When using our process, it&#39;s as simple as calling the VerifyActivity. This will handle all of the process, by calling the relevant identity information. All the data must be present otherwise the SDK will fail with an exception.</p>
 
+<p>There are different types of request that you need to specify, which depends on your use case. These are either:</p>
+
+<ol>
+<li>VeriFast</li>
+<li>Right To Work</li>
+</ol>
+
 <p>If you would like to manage the process yourself, we have provided some useful functionality that relies on Reactive principles.</p>
 
 <p>The process is as follows:</p>
 
 <ol>
+<li>Set the type of Verification</li>
 <li>Create an UploadVerification object. This creates an OkHttp3 client</li>
 <li>Check that the relevant information has been submitted to the IdentitySession, showing an error if it hasn&#39;t</li>
 <li>Start a request to verify the user, that can be observed and reacted on when a result is returned</li>
 </ol>
-<h1 id='verifycore'>VerifyCore</h1>
-<blockquote>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code></code></pre>
-<p>The Verify uses are entire UI flow to complete a verification of a user.</p>
 <h1 id='verifynfc'>VerifyNfc</h1>
 <blockquote>
 <p>Start NFC Scan</p>
@@ -597,14 +607,6 @@ or
 <li>RESULT_FACE_SCAN_SUCCESS</li>
 <li>RESULT_FACE_SCAN_FAILED</li>
 </ol>
-<h1 id='verifylive'>VerifyLive</h1>
-<blockquote>
-<p>Live Detection</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code><span class="n">TBC</span>
-</code></pre><pre class="highlight java tab-java"><code><span class="n">TBC</span>
-</code></pre>
-<p>Work in progress and has not yet been defined.</p>
 
       </div>
       <div class="dark-box">
