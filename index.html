@@ -234,13 +234,13 @@
             <a href="#verify" class="toc-h1 toc-link" data-title="Verify">Verify</a>
           </li>
           <li>
-            <a href="#verifyapi" class="toc-h1 toc-link" data-title="VerifyApi">VerifyApi</a>
-          </li>
-          <li>
-            <a href="#verifynfc" class="toc-h1 toc-link" data-title="VerifyNfc">VerifyNfc</a>
+            <a href="#verifyiddocument" class="toc-h1 toc-link" data-title="VerifyIdDocument">VerifyIdDocument</a>
           </li>
           <li>
             <a href="#verifyface" class="toc-h1 toc-link" data-title="VerifyFace">VerifyFace</a>
+          </li>
+          <li>
+            <a href="#verifyapi" class="toc-h1 toc-link" data-title="VerifyApi">VerifyApi</a>
           </li>
       </div>
         <ul class="toc-footer">
@@ -384,6 +384,11 @@ or
     <span class="c1">// Verification failed</span>
 <span class="o">}</span>
 </code></pre>
+<blockquote>
+<p>Show User Info (once scanned by user)</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">DisplayReadDataActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</code></pre>
 <p>You can use Verify to handle the entire Ui flow, in order to complete a verification of the user.</p>
 
 <p>In order to start the flow an email address will need to set into the SDK, this is so that a report can be sent to the user(or yourselves) depending on the Use Case</p>
@@ -410,22 +415,110 @@ or
 <li>Verified screen shown</li>
 <li>Stops process and returns to previous Activity</li>
 </ol>
+<h1 id='verifyiddocument'>VerifyIdDocument</h1>
+<blockquote>
+<p>Capture ID Document Info</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivityForResult</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">CaptureIdDocumentActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">REQUEST_CODE</span><span class="o">);</span>
+</code></pre>
+<blockquote>
+<p>Capture ID Result</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_CODE</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">resultCode</span> <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">RESULT_ID_SCAN_COMPLETE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Result successful</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">// Result unsuccessful</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Start Id Document Chip Data</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivityForResult</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">ReadIdDocumentChip</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">REQUEST_CODE</span><span class="o">);</span>
+</code></pre>
+<blockquote>
+<p>Scan Result</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_CODE</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">resultCode</span> <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">RESULT_ID_READ_COMPLETE</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Result successful</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="c1">// Result unsuccessful</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Show User Info (using Verify Ui)</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">DisplayReadDataActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</code></pre>
+<blockquote>
+<p>Show User Info</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentityDocument</span> <span class="n">identityDocument</span> <span class="o">=</span>
+    <span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getIdDoc</span><span class="o">();</span>
+
+<span class="n">userName</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+<span class="n">userGender</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getGender</span><span class="o">());</span>
+<span class="n">userNationality</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getNationality</span><span class="o">());</span>
+<span class="n">userBirthPlace</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getIssuingState</span><span class="o">());</span>
+
+<span class="c1">// We provide a formatter, or you can use the original value</span>
+<span class="n">userDoB</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span>
+    <span class="n">IdentityDocument</span><span class="o">.</span><span class="na">getFormattedDate</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getDateOfBirth</span><span class="o">()));</span>
+<span class="n">userCardExpiry</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span>
+    <span class="n">IdentityDocument</span><span class="o">.</span><span class="na">getFormattedDate</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getExpirationDate</span><span class="o">()));</span>
+
+<span class="c1">// Required to use the image utilities, to display the image from the chip</span>
+<span class="n">userImage</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span>
+    <span class="n">ImageUtils</span><span class="o">.</span><span class="na">identityFaceImageToBitmap</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">));</span>
+</code></pre>
+<p>This module interacts with the ID Document. With two main purposes:</p>
+
+<ol>
+<li>Capture ID Document (Image and MRZ)</li>
+<li>Scan ID Document Chip</li>
+</ol>
+<h1 id='verifyface'>VerifyFace</h1>
+<blockquote>
+<p>Take a Selfie</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivityForResult</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">FaceDetectionActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">REQUEST_CODE</span><span class="o">);</span>
+</code></pre>
+<blockquote>
+<p>Selfie Result</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_CODE</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_FACE_SCAN_SUCCESS</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// Selfie was captured successfully</span>
+<span class="o">}</span>
+</code></pre>
+<p>Captures the users face (selfie).</p>
+
+<p>Face detection, is used to make sure that the users face is fully visible and that all landmarks on the users face is visible.</p>
+
+<p>The following results are as follows:</p>
+
+<ol>
+<li>RESULT_FACE_SCAN_SUCCESS</li>
+<li>RESULT_FACE_SCAN_FAILED</li>
+</ol>
 <h1 id='verifyapi'>VerifyApi</h1>
 <blockquote>
 <p>Verifying with Ui</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERIFY_IDENTITY</span>
 <span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_RIGHT_TO_WORK</span>
 
-<span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">setStatus</span><span class="o">(</span><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span><span class="o">);</span>
+<span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">setStatus</span><span class="o">(</span><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERIFY_IDENTITY</span><span class="o">);</span>
 
 <span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">VerifyActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
 </code></pre>
 <blockquote>
 <p>Retrieve Result</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span><span class="o">(</span><span class="n">getIntent</span><span class="o">().</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">IntentUtils</span><span class="o">.</span><span class="na">EXTRA_VERIFY_COMPLETE</span><span class="o">,</span>
-    <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">GENERIC</span><span class="o">)</span>   <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">getIntent</span><span class="o">().</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">IntentUtils</span><span class="o">.</span><span class="na">EXTRA_VERIFY_COMPLETE</span><span class="o">,</span>
+    <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">GENERIC</span><span class="o">)</span> <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span>
     <span class="o">{</span>
         <span class="c1">// Verify was successful</span>
     <span class="o">}</span>
@@ -433,7 +526,7 @@ or
 <blockquote>
 <p>Setting Verification Type</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_FAST</span>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_VERI_IDENTITY</span>
 <span class="n">IdentitySession</span><span class="o">.</span><span class="na">REQUEST_RIGHT_TO_WORK</span>
 
 <span class="kd">private</span> <span class="kt">void</span> <span class="nf">verification</span><span class="o">()</span> <span class="o">{</span>
@@ -510,7 +603,7 @@ or
 <p>There are different types of request that you need to specify, which depends on your use case. These are either:</p>
 
 <ol>
-<li>VeriFast</li>
+<li>Verify Identity</li>
 <li>Right To Work</li>
 </ol>
 
@@ -523,89 +616,6 @@ or
 <li>Create an UploadVerification object. This creates an OkHttp3 client</li>
 <li>Check that the relevant information has been submitted to the IdentitySession, showing an error if it hasn&#39;t</li>
 <li>Start a request to verify the user, that can be observed and reacted on when a result is returned</li>
-</ol>
-<h1 id='verifynfc'>VerifyNfc</h1>
-<blockquote>
-<p>Start NFC Scan</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivityForResult</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">DetectingNFCDataActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">REQUEST_CODE</span><span class="o">);</span>
-</code></pre>
-<blockquote>
-<p>Scan Result</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_ID_READ</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">resultCode</span> <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">RESULT_ID_READ_COMPLETE</span><span class="o">)</span> <span class="o">{</span>
-        <span class="c1">// Result successful</span>
-    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="c1">// Result unsuccessful</span>
-    <span class="o">}</span>
-<span class="o">}</span>
-</code></pre>
-<blockquote>
-<p>Show User Info (using Verify Ui)</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">DisplayReadDataActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
-</code></pre>
-<blockquote>
-<p>Show User Info</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">IdentityDocument</span> <span class="n">identityDocument</span> <span class="o">=</span>
-    <span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getIdDoc</span><span class="o">();</span>
-
-<span class="n">userName</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
-<span class="n">userGender</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getGender</span><span class="o">());</span>
-<span class="n">userNationality</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getNationality</span><span class="o">());</span>
-<span class="n">userBirthPlace</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getIssuingState</span><span class="o">());</span>
-
-<span class="c1">// We provide a formatter, or you can use the original value</span>
-<span class="n">userDoB</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span>
-    <span class="n">IdentityDocument</span><span class="o">.</span><span class="na">getFormattedDate</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getDateOfBirth</span><span class="o">()));</span>
-<span class="n">userCardExpiry</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span>
-    <span class="n">IdentityDocument</span><span class="o">.</span><span class="na">getFormattedDate</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">.</span><span class="na">getExpirationDate</span><span class="o">()));</span>
-
-<span class="c1">// Required to use the image utilities, to display the image from the chip</span>
-<span class="n">userImage</span><span class="o">.</span><span class="na">setImageBitmap</span><span class="o">(</span>
-    <span class="n">ImageUtils</span><span class="o">.</span><span class="na">identityFaceImageToBitmap</span><span class="o">(</span><span class="n">identityDocument</span><span class="o">));</span>
-</code></pre>
-<p>Captures the users face (selfie).</p>
-
-<p>Face detection, is used to make sure that the users face is fully visible and that all landmarks on the users face is visible.</p>
-
-<p>The following results are as follows:</p>
-
-<ol>
-<li>RESULT_FACE_SCAN_SUCCESS</li>
-<li>RESULT_FACE_SCAN_FAILED</li>
-</ol>
-
-<p>Once the information has been retrived there are two ways to display the data:</p>
-
-<ol>
-<li>Using the provided Verify UI</li>
-<li>Implementing the Ui, by accessing <code>IdentityDocument</code> directly</li>
-</ol>
-<h1 id='verifyface'>VerifyFace</h1>
-<blockquote>
-<p>Take a Selfie</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivityForResult</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">FaceDetectionActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="n">REQUEST_CODE</span><span class="o">);</span>
-</code></pre>
-<blockquote>
-<p>Selfie Result</p>
-</blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span> <span class="o">(</span><span class="n">requestCode</span> <span class="o">==</span> <span class="n">REQUEST_CODE</span> <span class="o">&amp;&amp;</span> <span class="n">resultCode</span> <span class="o">==</span> <span class="n">RESULT_FACE_SCAN_SUCCESS</span><span class="o">)</span> <span class="o">{</span>
-    <span class="c1">// Selfie was captured successfully</span>
-<span class="o">}</span>
-</code></pre>
-<p>Captures the users face (selfie).</p>
-
-<p>Face detection, is used to make sure that the users face is fully visible and that all landmarks on the users face is visible.</p>
-
-<p>The following results are as follows:</p>
-
-<ol>
-<li>RESULT_FACE_SCAN_SUCCESS</li>
-<li>RESULT_FACE_SCAN_FAILED</li>
 </ol>
 
       </div>
