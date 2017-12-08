@@ -418,9 +418,97 @@ or
 </ol>
 <h1 id='verifyapi'>VerifyApi</h1>
 <blockquote>
+<p>Verifying with Ui</p>
 </blockquote>
-<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code></code></pre>
-<p>The Verify uses are entire UI flow to complete a verification of a user.</p>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="n">startActivity</span><span class="o">(</span><span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">VerifyActivity</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+</code></pre>
+<blockquote>
+<p>Retrieve Result</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">if</span><span class="o">(</span><span class="n">getIntent</span><span class="o">().</span><span class="na">getIntExtra</span><span class="o">(</span><span class="n">IntentUtils</span><span class="o">.</span><span class="na">EXTRA_VERIFY_COMPLETE</span><span class="o">,</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">GENERIC</span><span class="o">)</span>
+    <span class="o">==</span> <span class="n">ApiResults</span><span class="o">.</span><span class="na">Codes</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">))</span>
+    <span class="o">{</span>
+        <span class="c1">// Verify was successful</span>
+    <span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Start a Verification</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">initialVerification</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">startVerification</span><span class="o">(</span><span class="k">new</span> <span class="n">UploadVerification</span><span class="o">(</span>
+        <span class="n">IdentitySession</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(),</span>
+        <span class="k">new</span> <span class="nf">IdentityClient</span><span class="o">()));</span>
+<span class="o">}</span>
+
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">startVerification</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">UploadVerification</span> <span class="n">uploadVerification</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">FaceBiometry</span> <span class="n">faceBiometry</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getFaceBio</span><span class="o">();</span>
+    <span class="n">IdentityDocument</span> <span class="n">document</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getUserIdentity</span><span class="o">().</span><span class="na">getIdDoc</span><span class="o">();</span>
+    <span class="n">String</span> <span class="n">sessionJson</span> <span class="o">=</span> <span class="n">identitySession</span><span class="o">.</span><span class="na">getIdentityCheckSessionJSON</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">faceBiometry</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">document</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">TextUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">sessionJson</span><span class="o">))</span> <span class="o">{</span>
+        <span class="c1">// Something is wrong, show your error state</span>
+    <span class="o">}</span>
+
+    <span class="cm">/*
+    verifyUser returns a Disposable, highly recommended that you use with one appropriatly
+    */</span>
+    <span class="n">faceBiometry</span><span class="o">.</span><span class="na">verifyUser</span><span class="o">(</span>
+        <span class="n">getApplicationContext</span><span class="o">(),</span><span class="c1">//</span>
+        <span class="n">uploadVerification</span><span class="o">,</span><span class="c1">//</span>
+        <span class="n">document</span><span class="o">.</span><span class="na">getIdentityImage</span><span class="o">(),</span>
+        <span class="n">document</span><span class="o">.</span><span class="na">getScanOfMRZ</span><span class="o">(),</span>
+        <span class="n">sessionJson</span><span class="o">,</span>
+        <span class="n">observer</span> <span class="c1">// Observer for the result</span>
+        <span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+<blockquote>
+<p>Observer Result</p>
+</blockquote>
+<pre class="highlight kotlin tab-kotlin"><code></code></pre><pre class="highlight java tab-java"><code><span class="k">return</span> <span class="k">new</span> <span class="n">VerifyResponse</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@Override</span> <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onStart</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">onStart</span><span class="o">();</span>
+        <span class="c1">// Process has begun</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verifySuccess</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// User was verified</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verifyFailure</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// The user isn't verified</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verifyError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Likely in the form of a VerifyException</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">verifyComplete</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// Process has completed</span>
+    <span class="o">}</span>
+</code></pre>
+<p>In order to verify a user, currently we need to connect to our API to run the complex facial matching.</p>
+
+<p>To do this you can do either of the following:</p>
+
+<ol>
+<li>Use our supplied verification process</li>
+<li>Implement your own, using the SDK</li>
+</ol>
+
+<p>When using our process, it&#39;s as simple as calling the VerifyActivity. This will handle all of the process, by calling the relevant identity information. All the data must be present otherwise the SDK will fail with an exception.</p>
+
+<p>If you would like to manage the process yourself, we have provided some useful functionality that relies on Reactive principles.</p>
+
+<p>The process is as follows:</p>
+
+<ol>
+<li>Create an UploadVerification object. This creates an OkHttp3 client</li>
+<li>Check that the relevant information has been submitted to the IdentitySession, showing an error if it hasn&#39;t</li>
+<li>Start a request to verify the user, that can be observed and reacted on when a result is returned</li>
+</ol>
 <h1 id='verifycore'>VerifyCore</h1>
 <blockquote>
 </blockquote>
