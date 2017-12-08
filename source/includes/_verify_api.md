@@ -6,6 +6,11 @@
 ```
 
 ```java
+IdentitySession.REQUEST_VERI_FAST
+IdentitySession.REQUEST_RIGHT_TO_WORK
+
+IdentitySession.getInstance().setStatus(IdentitySession.REQUEST_VERI_FAST);
+
 startActivity(new Intent(this, VerifyActivity.class));
 ```
 
@@ -15,27 +20,39 @@ startActivity(new Intent(this, VerifyActivity.class));
 ```
 
 ```java
-if(getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE, ApiResults.Codes.GENERIC)
-	== ApiResults.Codes.SUCCESS))
+if(getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE,
+	ApiResults.Codes.GENERIC)	== ApiResults.Codes.SUCCESS))
 	{
 		// Verify was successful
 	}
 ```
 
-> Start a Verification
+> Setting Verification Type
 
 ```kotlin
 ```
 
 ```java
+IdentitySession.REQUEST_VERI_FAST
+IdentitySession.REQUEST_RIGHT_TO_WORK
 
-private void initialVerification() {
-	startVerification(new UploadVerification(
-		IdentitySession.getInstance(),
-		new IdentityClient()));
+private void verification() {
+	startVerification(
+    	new UploadVerification(identitySession, identityClient));
 }
 
+private void verification(@IdentitySession.StatusTypes @NonNull String status) {
+	startVerification(
+    	new UploadVerification(identitySession, status, identityClient));
+}
+```
 
+> Start custom Verification
+
+```kotlin
+```
+
+```java
 private void startVerification(@NonNull UploadVerification uploadVerification) {
 	FaceBiometry faceBiometry = identitySession.getUserIdentity().getFaceBio();
 	IdentityDocument document = identitySession.getUserIdentity().getIdDoc();
@@ -88,7 +105,7 @@ return new VerifyResponse() {
 	}
 ```
 
-In order to verify a user, currently we need to connect to our API to run the complex facial matching.
+In order to verify a user, currently we need to connect to our API to run the facial matching.
 
 To do this you can do either of the following:
 
@@ -97,10 +114,16 @@ To do this you can do either of the following:
 
 When using our process, it's as simple as calling the VerifyActivity. This will handle all of the process, by calling the relevant identity information. All the data must be present otherwise the SDK will fail with an exception.
 
+There are different types of request that you need to specify, which depends on your use case. These are either:
+
+1. VeriFast
+2. Right To Work
+
 If you would like to manage the process yourself, we have provided some useful functionality that relies on Reactive principles.
 
 The process is as follows:
 
-1. Create an UploadVerification object. This creates an OkHttp3 client
-2. Check that the relevant information has been submitted to the IdentitySession, showing an error if it hasn't
-3. Start a request to verify the user, that can be observed and reacted on when a result is returned
+1. Set the type of Verification
+2. Create an UploadVerification object. This creates an OkHttp3 client
+3. Check that the relevant information has been submitted to the IdentitySession, showing an error if it hasn't
+4. Start a request to verify the user, that can be observed and reacted on when a result is returned

@@ -16,10 +16,8 @@ includes:
   - initialisation
   - verify
   - verify_api
-  - verify_core
   - verify_nfc
   - verify_face
-  - verify_live
 
 search: true
 ---
