@@ -1,4 +1,4 @@
-# VerifyApi
+# Eyn Api
 
 > Verifying with Ui
 

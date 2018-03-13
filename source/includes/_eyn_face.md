@@ -1,4 +1,4 @@
-# VerifyFace
+# Eyn Face
 
 > Take a Selfie
 

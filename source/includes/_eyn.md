@@ -1,24 +1,28 @@
-# Verify
+# Eyn
 
-> Set the email address
+> Create the Initialisation Builder
+
+```kotlin
+IdentitySession.CHECK_TYPE_BASIC // Default
+IdentitySession.CHECK_TYPE_RIGHT_TO_WORK // Needed for Right to Work checks
+
+val builder = IdentitySession.Builder()//
+          .withEynApiKey("")
+          .withMicroBlinkKey("")
+          .withStatusType("")
+          .withCheckType("")
+```
+
+> Set/update report detination email address
 
 ```kotlin
 IdentitySession.getInstance().email = "email@address.com";
 ```
 
-```java
-IdentitySession.getInstance().setEmail("email@address.com");
-```
-
-> Show the Tutorial Screens (handles entire flow)
+> Start the Eyn flow (handles entire flow)
 
 ```kotlin
-val intent = Intent(this, TutorialActivity::class.java)
-startActivity(intent)
-```
-
-```java
-startActivity(new Intent(this, TutorialActivity.class));
+startActivity(Intent(this, PrivacyActivity::class.java))
 ```
 
 > Verification - Success / Failure
@@ -33,27 +37,6 @@ if (intent != null && intent.getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE,
 } else {
 	// Verification failed
 }
-```
-
-```java
-Success = ApiResults.Codes.SUCCESS
-Failure = ApiResults.Codes.FAILURE
-
-if (getIntent() != null && getIntent().getIntExtra(IntentUtils.EXTRA_VERIFY_COMPLETE, 
-	ApiResults.Codes.GENERIC) == ApiResults.Codes.SUCCESS) {
-	// Verification passed
-}else{
-	// Verification failed
-}
-```
-
-> Show User Info (once scanned by user)
-
-```kotlin
-```
-
-```java
-startActivity(new Intent(this, DisplayReadDataActivity.class));
 ```
 
 You can use Verify to handle the entire Ui flow, in order to complete a verification of the user.
