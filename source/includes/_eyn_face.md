@@ -1,4 +1,4 @@
-# EynFace
+# Eyn Face
 
 > Take a Selfie
 

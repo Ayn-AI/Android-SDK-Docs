@@ -1,4 +1,4 @@
-# EynIdDocument
+# Eyn Document
 
 > Capture ID Document Info
 
